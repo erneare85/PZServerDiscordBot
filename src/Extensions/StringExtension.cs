@@ -1,4 +1,4 @@
-﻿public static class StringExtension
+public static class StringExtension
 {
     public static string KeyFormat(this string str, params (string, object)[] formatPair)
     {
@@ -6,10 +6,9 @@
 
         foreach((string, object) pair in formatPair)
         {
-            if(!str.Contains(pair.Item1))
-                Logger.WriteLog($"KeyFormat() - Key \"{pair.Item1}\" not found! str: {str}");
-
-            str = str.Replace("{" + pair.Item1 + "}", pair.Item2.ToString());
+            string token = "{" + pair.Item1 + "}";
+            if(str.Contains(token))
+                str = str.Replace(token, pair.Item2.ToString());
         }
 
         return str;

@@ -1,7 +1,7 @@
-# Análisis técnico y funcional — PZServerDiscordBot
+# Análisis técnico y funcional — SOW Gatekeeper 26
 
 **Proyecto:** bot de Discord para administración de servidores dedicados de *Project Zomboid* (Windows).  
-**Fork activo:** [erneare85/PZServerDiscordBot](https://github.com/erneare85/PZServerDiscordBot). **Upstream original:** [egebilecen/PZServerDiscordBot](https://github.com/egebilecen/PZServerDiscordBot). El árbol local puede incluir personalizaciones (por ejemplo en `Program.cs`, `UserCommands.cs`, `BotUtility.cs`).  
+**Producto:** **SOW Gatekeeper 26** (ensamblado `SOWGatekeeper26`). **Fork en GitHub:** [erneare85/PZServerDiscordBot](https://github.com/erneare85/PZServerDiscordBot). **Upstream:** [egebilecen/PZServerDiscordBot](https://github.com/egebilecen/PZServerDiscordBot).  
 **Fecha del análisis:** 29 de marzo de 2026.
 
 ---
@@ -37,7 +37,7 @@ La separación operativa depende de que los administradores configuren **tres ca
 
 ### 3.1 Stack y empaquetado
 
-- **Lenguaje:** C# (ensamblado `PZServerDiscordBot.exe`).
+- **Lenguaje:** C# (ensamblado `SOWGatekeeper26.exe`, nombre visible **SOW Gatekeeper 26**).
 - **Framework:** .NET Framework **4.7.2** (proyecto clásico `.csproj` + `packages.config`).
 - **NuGet destacados:** Discord.Net 3.8.1, Newtonsoft.Json 13.0.2, Costura.Fody (empaquetado de dependencias), DiscordRPC (Rich Presence; uso actual mayormente comentado en `Program.cs`).
 - **Plataforma:** **solo Windows** (rutas, `server.bat`, `System.Management` para métricas, etc.).

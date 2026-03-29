@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 public static class Application
 {
+    public const string BotDisplayName = "SOW Gatekeeper 26";
     public const string BotRepoURL = "https://github.com/erneare85/PZServerDiscordBot";
     public static readonly SemanticVersion BotVersion = new SemanticVersion(1, 0, 0, DevelopmentStage.Release);
     public static Settings.BotSettings     BotSettings;
@@ -113,7 +114,7 @@ public static class Application
 
         await CommandHandler.SetupAsync();
         await Client.LoginAsync(TokenType.Bot, DiscordUtility.GetToken());
-        await Client.SetGameAsync("chiteros en el servidor", type: ActivityType.Watching);
+        await Client.SetGameAsync(BotDisplayName, type: ActivityType.Playing);
         await Client.StartAsync();
 
         // Iniciar Discord Rich Presence (RPC)
@@ -156,7 +157,7 @@ public static class Application
 
     private static async Task SetBotPresence()
     {
-        await Client.SetGameAsync("Administrando en el servidor", type: ActivityType.CustomStatus);
+        await Client.SetGameAsync(BotDisplayName, type: ActivityType.Playing);
     }
 
     private static void InitializeRichPresence()
@@ -170,14 +171,14 @@ public static class Application
     {
         _rpcClient.SetPresence(new RichPresence()
         {
-            Details = "Administración",
-            State = "Supervisando",
+            Details = BotDisplayName,
+            State = "Project Zomboid server",
             Assets = new Assets()
             {
                 LargeImageKey = "embedded_background",
-                LargeImageText = "Shelter Of Wisdom - Project Zomboid Server",
+                LargeImageText = "SOW Gatekeeper 26 — Project Zomboid",
                 SmallImageKey = "shelter_of_wisdom_logo",
-                SmallImageText = "Shelter Of Wisdom Agent"
+                SmallImageText = BotDisplayName
             },
             Buttons = new Button[]
             {
@@ -194,14 +195,14 @@ public static class Application
         {
             _rpcClient.SetPresence(new RichPresence()
             {
-                Details = "Administración",
-                State = "Supervisando",
+                Details = BotDisplayName,
+                State = "Project Zomboid server",
                 Assets = new Assets()
                 {
                     LargeImageKey = "embedded_background",
-                    LargeImageText = "Shelter Of Wisdom - Project Zomboid Server",
+                    LargeImageText = "SOW Gatekeeper 26 — Project Zomboid",
                     SmallImageKey = "shelter_of_wisdom_logo",
-                    SmallImageText = "Shelter Of Wisdom Agent"
+                    SmallImageText = BotDisplayName
                 },
                 Buttons = new Button[]
                 {

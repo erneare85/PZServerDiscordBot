@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PZServerDiscordBot")]
-[assembly: AssemblyDescription("github.com/erneare85/PZServerDiscordBot")]
+[assembly: AssemblyTitle("SOW Gatekeeper 26")]
+[assembly: AssemblyDescription("SOW Gatekeeper 26 — Project Zomboid Discord bot. https://github.com/erneare85/PZServerDiscordBot")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PZServerDiscordBot")]
+[assembly: AssemblyProduct("SOW Gatekeeper 26")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

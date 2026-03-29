@@ -1,4 +1,4 @@
-﻿using Discord;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System;
@@ -99,7 +99,7 @@ public static class DiscordUtility
                 goto logChannelCheck;
             }
 
-            await textChannel.SendMessageAsync(Localization.Get("info_bot_started").KeyFormat(("version", Application.BotVersion)));
+            await textChannel.SendMessageAsync(Localization.Get("info_bot_started").KeyFormat(("bot_name", Application.BotDisplayName), ("version", Application.BotVersion)));
         }
 
     publicChannelCheck:

@@ -1,10 +1,10 @@
-# Project Zomboid Discord Bot for Server Management
-This bot is written for people to easily manage their Project Zomboid server using Discord. Please check the **Installation** and **Bot Configuration** section. Also, this bot doesn't support multiple Discord servers and only works on the **Windows** operating system. Be sure to have **.NET Framework 4.7.2** installed on the machine.
+# SOW Gatekeeper 26 — Project Zomboid Discord Bot
+**SOW Gatekeeper 26** is a Discord bot for managing a **Project Zomboid** dedicated server on **Windows**. See **Installation** and **Bot Configuration** below. It does not support multiple Discord guilds. You need **.NET Framework 4.7.2** on the machine.
 
 <br>
 
 <img alt="Actively maintained" src="https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg" title="This fork is actively maintained." /><br>
-*Actively maintained fork. Upstream project: [egebilecen/PZServerDiscordBot](https://github.com/egebilecen/PZServerDiscordBot).*
+*Actively maintained — **SOW Gatekeeper 26**. Upstream: [egebilecen/PZServerDiscordBot](https://github.com/egebilecen/PZServerDiscordBot).*
 
 ## Contents
 * [Features](#features)
@@ -73,7 +73,7 @@ To complete this step and the next step, you must have remote access to your Win
 ![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/setting%20up%20bot%20token/Screenshot_2.png)
 3. Save the file and close it.
 
-Now all you need to do is run `PZServerDiscordBot.exe`. If you did set up everything correctly, the program will automatically run the Discord bot in the background and will show the Project Zomboid Server in the console. (Bot may not send the warning messages about the configuration if your Discord server's last created channel is not accessible by the bot. You can just type configuration commands regardless.)
+Now all you need to do is run `SOWGatekeeper26.exe`. If you did set up everything correctly, the program will automatically run the Discord bot in the background and will show the Project Zomboid Server in the console. (Bot may not send the warning messages about the configuration if your Discord server's last created channel is not accessible by the bot. You can just type configuration commands regardless.)
 ![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20demonstration/Screenshot_2.png)
 
 **Note**<br>

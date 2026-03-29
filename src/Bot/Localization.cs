@@ -92,8 +92,8 @@ public static class Localization
         { "err_export_localization", "ERROR: Couldn't export default localization!" },
 
         // Info Messages
-        { "info_disc_act_bot_ver", "Bot Version: {version}" },
-        { "info_bot_started", "Bot (**{version}**) is started. :zombie:" },
+        { "info_disc_act_bot_ver", "{bot_name} — version {version}" },
+        { "info_bot_started", "**{bot_name}** ({version}) is online. :zombie:" },
         { "info_bot_new_version", "There is a new version (**{new_version}**) of bot! Current version: **{current_version}**. Please consider to update from {repo_url}. If you enjoy the bot, please leave a :star: to repo if you haven't :relaxed:." },
         { "info_bot_new_early_version", "There is a new **early access** version (**{new_version}**) of bot! Current version: **{current_version}**. This early access version can be downloaded from **Releases** section of the repo. Repo link: {repo_url}. This version may not be stable as it is not extensively tested (which I also have no means to test it as I don't own a server so any help is appreciated) but it offers early access to the new features. If any problem occurs, you can always switch back to old version from the **Releases** section. If you observe any problem, please report it in **Issues** section." },
         { "info_export_localization", "INFO: Default localization successfully exported!" },
@@ -219,7 +219,7 @@ public static class Localization
 
         // ---- User Commands
         // -------- !bot_info
-        { "disc_cmd_bot_info_text", "This bot is written for people to easily manage their server using Discord. Source code and files of the bot can be reached from {repo_url}. If you enjoy the bot, please leave a :star: to the repo if you haven't :relaxed:." },
+        { "disc_cmd_bot_info_text", "**{bot_name}** — Discord bot for Project Zomboid dedicated servers (Windows). Source and releases: {repo_url}. If it helps you, consider leaving a :star: on the repo :relaxed:." },
 
         // -------- !server_status
         { "disc_cmd_server_status_running", "Server is **running** :hamster:" },

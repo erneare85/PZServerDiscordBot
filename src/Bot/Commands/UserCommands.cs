@@ -1,4 +1,4 @@
-﻿using Discord.Commands;
+using Discord.Commands;
 using System;
 using System.IO;
 using System.Linq;
@@ -11,7 +11,7 @@ public class UserCommands : ModuleBase<SocketCommandContext>
     public async Task BotInfo()
     {
         await Context.Message.AddReactionAsync(EmojiList.GreenCheck);
-        await Context.Channel.SendMessageAsync(Localization.Get("disc_cmd_bot_info_text").KeyFormat(("repo_url", Application.BotRepoURL)));
+        await Context.Channel.SendMessageAsync(Localization.Get("disc_cmd_bot_info_text").KeyFormat(("bot_name", Application.BotDisplayName), ("repo_url", Application.BotRepoURL)));
     }
 
     [Command("server_status")]

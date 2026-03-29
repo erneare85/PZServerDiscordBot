@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 public static class Logger
@@ -24,6 +24,7 @@ public static class Logger
                         "\nMessage: "+ex.Message +
                         "\nStack trace: "+ex.StackTrace.Trim() +
                         "\nDate: "+ GetLoggingDate() +
+                        "\nBot: "+ Application.BotDisplayName +
                         "\nBot Version: "+ Application.BotVersion +
                         (additional_msg != "" ? "\n"+additional_msg : "") +
                         "\n---------------\n";
