@@ -3,8 +3,8 @@ This bot is written for people to easily manage their Project Zomboid server usi
 
 <br>
 
-<img alt="No Longer Maintained" src="https://img.shields.io/badge/maintenance-no_longer_maintained-red.svg" title="The bot is no longer maintained." /><br>
-*The bot is no longer maintained.*
+<img alt="Actively maintained" src="https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg" title="This fork is actively maintained." /><br>
+*Actively maintained fork. Upstream project: [egebilecen/PZServerDiscordBot](https://github.com/egebilecen/PZServerDiscordBot).*
 
 ## Contents
 * [Features](#features)
