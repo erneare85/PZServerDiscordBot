@@ -3,8 +3,8 @@ This bot is written for people to easily manage their Project Zomboid server usi
 
 <br>
 
-<img alt="Passively Maintained" src="https://img.shields.io/badge/maintenance-passively--maintained-yellowgreen.svg" title="There are no plans for new features, but the bot is actively maintained." /><br>
-*There are no plans for new features, but the bot is actively maintained.*
+<img alt="No Longer Maintained" src="https://img.shields.io/badge/maintenance-no_longer_maintained-red.svg" title="The bot is no longer maintained." /><br>
+*The bot is no longer maintained.*
 
 ## Contents
 * [Features](#features)
