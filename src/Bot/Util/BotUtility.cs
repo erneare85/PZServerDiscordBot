@@ -1,4 +1,4 @@
-﻿using Discord;
+using Discord;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
@@ -10,8 +10,8 @@ public static class BotUtility
 
     public static async Task<Tuple<string, string>> GetLatestBotVersion()
     {
-        const string apiURL = "https://api.github.com/repos/egebilecen/PZServerDiscordBot/releases/latest";
-     
+        const string apiURL = "https://api.github.com/repos/erneare85/PZServerDiscordBot/releases/latest";
+
         string version = null;
         string releaseText = null;
         string result  = await EB_Utility.WebRequest.GetAsync(SteamWebAPI.HttpClient, apiURL);
@@ -23,7 +23,7 @@ public static class BotUtility
         {
             JObject jsonObj = JObject.Parse(result);
             version = jsonObj["tag_name"].Value<string>();
-            releaseText = jsonObj["body"].Value<string>();    
+            releaseText = jsonObj["body"].Value<string>();
         }
         catch(Exception ex)
         {
@@ -52,8 +52,8 @@ public static class BotUtility
         }
 
         bool parseResult = SemanticVersion.TryParse(lastReleaseResult.Item1, out SemanticVersion latestBotVersion);
-
-        if(parseResult)
+        
+        if (parseResult)
         {
             if(Application.BotVersion < latestBotVersion)
             {

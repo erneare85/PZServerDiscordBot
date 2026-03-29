@@ -7,7 +7,7 @@ public static class Logger
 
     public static string GetLoggingDate()
     {
-        return DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss") + " UTC";
+        return DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
     }
 
     public static void WriteLog(string text)

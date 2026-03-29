@@ -26,6 +26,14 @@ public class UserCommands : ModuleBase<SocketCommandContext>
                                              : Localization.Get("disc_cmd_server_status_dead"));
     }
 
+    [Command("server_la_prima")]
+    [Summary("Ojo!. (!server_la_prima)")]
+    public async Task ServerLaPrima()
+    {
+        await Context.Message.AddReactionAsync(EmojiList.GreenCheck);
+        await Context.Channel.SendMessageAsync($"Acaba de pasar **la prima** de {Context.User.Mention} a levantarnos **el muerto!** ");
+    }
+
     [Command("restart_time")]
     [Summary("Gets the next automated restart time. (!restart_time)")]
     public async Task RebootTime()

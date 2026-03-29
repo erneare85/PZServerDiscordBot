@@ -21,20 +21,20 @@ This bot is written for people to easily manage their Project Zomboid server usi
 
 # Features
 - Automated server restart schedule with in-game and Discord warning. (Warnings are announced when 1 hour, 30 min, 15 min, 5 min, and 1 min are left until server restart. Restart interval can be configured with bot commands.)
-![Automated Server Restart Example](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_1.png)
+![Automated Server Restart Example](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_1.png)
 - Automated server restart when a mod (workshop item) update has been detected.
-![Automated Workshop Item Update Server Restart](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_4.png)
+![Automated Workshop Item Update Server Restart](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_4.png)
 - Executing server commands through bot commands. (For example, saving the server, kicking a player, teleporting a player, starting/stopping rain, making admin, and so on. The full list will be at the bottom and will be listed under available commands.)
-![Server Commands Example](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_3.png)
+![Server Commands Example](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_3.png)
 - Perk Parser with a cache system. (Bot automatically parses the last perk log file that holds the player skills when they log in to the server. This can be used to aid players that died to a bug, but they can't remember their skills. As stated before, the server logs the player skills only when they log into the server. If a player levels up a skill after connecting to the server, it won't appear in the log unless the player logs into the server afterwards again.) When the command for the perk parser is invoked, the bot will parse the file and save its contents in memory until the cache (in minutes) expires. This is to increase efficiency, as the bot will not have to parse the same file each time. In a situation where fresh data is needed, the **!reset_perk_cache** command can be used to reset the cache.
-![Perk Parser Example](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_2.png)
+![Perk Parser Example](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_2.png)
 - Auto server start if the server quits. This feature is useful if combined with mods that quit the server for whatever reason. For example, if you are using a mod that checks mod updates and, when detected, quits the server. With this feature enabled, you won't need to manually run the server.
-![Auto Server Start Example](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_5.png)
+![Auto Server Start Example](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_5.png)
 - `!get_ram_cpu` command for checking the current RAM and CPU usage of the machine.
-![RAM CPU Command Example](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_6.png)
+![RAM CPU Command Example](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_6.png)
 - `!backup_server` command for backing up the server easily.
-![Backup Command Example 1](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_7.png)
-![Backup Command Example 2](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_8.png)
+![Backup Command Example 1](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_7.png)
+![Backup Command Example 2](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20features/Screenshot_8.png)
 - Localization system! You can check available localizations using the `!localization` command.  See the [Localization](#localization) section about how to translate the bot.
 <i>**Note:** It is not possible to translate commands and their descriptions at the moment. It might change in the future, though.</i>
 
@@ -42,39 +42,39 @@ This bot is written for people to easily manage their Project Zomboid server usi
 #### Creating the Discord Bot
 1. Go to the [Applications](https://discord.com/developers/applications) section of the Discord developer portal. (Be sure to log in first.)
 2. Click the `New Application` button on the top right corner of the screen.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_1.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_1.png)
 3. Enter your bot's name in the pop-up, then click the create button. You will be redirected to your application's (bot's) page. On that page, you can update your bot's name and description and even load an image as an avatar.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_2.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_2.png)
 4. Navigate to the `Bot` section from the left menu. Then click the `Add Bot` button. Then confirm the pop-up. You will be redirected to your bot page.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_3.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_3.png)
 5. Click the `Reset Token` button. Then confirm the pop-up. This will create a new token for your bot. Copy the displayed token and save it in a file. You won't be able to view your bot token unless you reset it again. Also, do not share this token with anyone. It's basically the password of your bot. If you share it with someone else, they will have full control over your bot.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_4.png)
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_5.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_4.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_5.png)
 6. Navigate to the `OAuth2` section from the left menu and select the `URL generator` from the dropdown. Check the `bot` from the `Scopes` section and scroll down to the `Bot Permissions`.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_6.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_6.png)
 7. Check the options shown below and copy the generated URL.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_7.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_7.png)
 8. Open the copied link on your browser. On the page, select the server that you want the bot to work in. (You must be an admin on the server; otherwise, the server won't show up, but you can always send the link to an admin, which they can authorize the bot.) Click the `Continue` button and then the `Authorise` button. Complete the captcha if it pops up. Now the bot has joined your server, but it's not running yet.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_8.png) <br>
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_9.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_8.png) <br>
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20creation/Screenshot_9.png)
 
 #### Installing the Bot Files
 To complete this step and the next step, you must have remote access to your Windows machine.
-1. Navigate to [releases](https://github.com/egebilecen/PZServerDiscordBot/releases) and pick a binary version. I would suggest picking the latest version, as it would consist of new features and bug fixes.
+1. Navigate to [releases](https://github.com/erneare85/PZServerDiscordBot/releases) and pick a binary version. I would suggest picking the latest version, as it would consist of new features and bug fixes.
 2. Download the `zip` archive.
 3. Extract the contents in the archive to the `Project Zomboid Dedicated Server` folder. Your directory after extraction will look like the image below.  
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/folder_structure.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/folder_structure.png)
 4. Rename the bat file you were using to start the server as `server.bat`. For example, if you were using `StartServer64.bat`, rename it as `server.bat`.
 
 #### Writing the Discord Bot Token Into File
 1. Create an empty text file in the directory and name it `bot_token.txt` and open it.
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/setting%20up%20bot%20token/Screenshot_1.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/setting%20up%20bot%20token/Screenshot_1.png)
 2. Paste the bot token that you saved while creating the Discord bot to the first line. (It will look like the picture below.)
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/setting%20up%20bot%20token/Screenshot_2.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/setting%20up%20bot%20token/Screenshot_2.png)
 3. Save the file and close it.
 
 Now all you need to do is run `PZServerDiscordBot.exe`. If you did set up everything correctly, the program will automatically run the Discord bot in the background and will show the Project Zomboid Server in the console. (Bot may not send the warning messages about the configuration if your Discord server's last created channel is not accessible by the bot. You can just type configuration commands regardless.)
-![](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20demonstration/Screenshot_2.png)
+![](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20demonstration/Screenshot_2.png)
 
 **Note**<br>
 If you have never run the Project Zomboid server before, please run it once without using the bot. Because when you run the Project Zomboid server for the first time, it will ask you to set up an admin account. You can't send any key presses to the console if you run the server through the Discord bot's exe file.
@@ -83,12 +83,12 @@ If you have never run the Project Zomboid server before, please run it once with
 If the bot doesn't respond to any commands, that could mean two things: <br>
 * The bot doesn't have permission to see the channel. Be sure that the bot has full access to the channel, which also includes permission to send messages. After confirming the bot has full access but still won't respond, see the next bullet point.
 * The bot has a missing *intents* configuration. Please head to the [Discord developer portal](https://discord.com/developers/applications) (which is the place you created and set up your bot), select your bot, click on the `Bot` tab on the left menu, and be sure that all bot intentions are enabled under the `Privileged Gateway Intents` section.
-![Bot Intents Example](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20intents%20config/Screenshot_1.png)
+![Bot Intents Example](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20intents%20config/Screenshot_1.png)
 
 # Bot Configuration
 This bot uses 3 different channels to operate. The first channel is the public channel, where users can interact with the bot.  The second channel is the command channel, which must be set to be only visible to server admins. This channel is used for executing server management and bot configuration commands. The third channel is the log channel. There aren't any commands to execute in this channel, and it's set for the bot to announce stuff. After the bot launches for the first time (or not configured), it will ask you to configure the mentioned three channels using the `!set_command_channel`, `!set_log_channel` and `!set_public_channel` commands. Those commands are very easy to use. Just reply to any channel with the tag of the channel you want the bot to be configured in. For example: `!set_public_channel #bot-public`
 
-![Bot Configuration Example](https://github.com/egebilecen/PZServerDiscordBot/blob/main/.github/images/bot%20demonstration/Screenshot_1.png)
+![Bot Configuration Example](https://github.com/erneare85/PZServerDiscordBot/blob/main/.github/images/bot%20demonstration/Screenshot_1.png)
 
 # Bot Commands
 The **!help** command can be used in any of the configured 3 channels, which the bot will respond to with the available command list for *that channel*.
@@ -155,7 +155,7 @@ Server Commands:
 - `!remove_workshop_mod` Removes a workshop mod from the workshop mod url. (!remove_workshop_mod [workshop mod urls with spaces in-between])<br>
 
 # Localization
-You can find the default localization file in [here](https://github.com/egebilecen/PZServerDiscordBot/blob/main/localization/default.json). All you need to do is download it and translate all the words/sentences on the right side of **":"** between **two quote marks**. The example below will illustrate how it should look after the translation.
+You can find the default localization file in [here](https://github.com/erneare85/PZServerDiscordBot/blob/main/localization/default.json). All you need to do is download it and translate all the words/sentences on the right side of **":"** between **two quote marks**. The example below will illustrate how it should look after the translation.
 
 **Before translation:**
 ```
@@ -201,4 +201,4 @@ Non-public mod logging feature has been {state}. -> Non-public mod logging featu
 hours ago {hours} -> hours ago 10
 ```
 
-After you have completed translating all words/sentences, please create an [issue](https://github.com/egebilecen/PZServerDiscordBot/issues/new/choose) by selecting the **Localization Submission** template with the title `Localization of <language here>` and attaching the translated `.json` file in a **zip archive**. I will add it to available localizations. Also, when a new version of the bot is released, there might be new added text, so it is good to keep an eye on updates. If your current localization is missing the newly added text, the bot will use the default localization for these.
+After you have completed translating all words/sentences, please create an [issue](https://github.com/erneare85/PZServerDiscordBot/issues/new/choose) by selecting the **Localization Submission** template with the title `Localization of <language here>` and attaching the translated `.json` file in a **zip archive**. I will add it to available localizations. Also, when a new version of the bot is released, there might be new added text, so it is good to keep an eye on updates. If your current localization is missing the newly added text, the bot will use the default localization for these.

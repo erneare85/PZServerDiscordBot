@@ -1,20 +1,23 @@
-﻿#define EXPORT_DEFAULT_LOCALIZATION
+#define EXPORT_DEFAULT_LOCALIZATION
 
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DiscordRPC;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 public static class Application
 {
-    public const string                    BotRepoURL = "https://github.com/egebilecen/PZServerDiscordBot";
-    public static readonly SemanticVersion BotVersion = new SemanticVersion(1, 11, 5, DevelopmentStage.Release);
+    public const string BotRepoURL = "https://github.com/erneare85/PZServerDiscordBot";
+    public static readonly SemanticVersion BotVersion = new SemanticVersion(1, 0, 0, DevelopmentStage.Release);
     public static Settings.BotSettings     BotSettings;
 
     public static DiscordSocketClient  Client;
+    private static DiscordRpcClient _rpcClient;
     public static CommandService       Commands;
     public static IServiceProvider     Services;
     public static CommandHandler       CommandHandler;
@@ -97,7 +100,10 @@ public static class Application
         Scheduler.Start(1000);
         
     #if !DEBUG
-        ServerUtility.ServerProcess = ServerUtility.Commands.StartServer();
+        if (BotSettings.BotFeatureSettings.AutoServerStart)
+        {
+            ServerUtility.ServerProcess = ServerUtility.Commands.StartServer();
+        }
     #endif
 
         Client   = new DiscordSocketClient(new DiscordSocketConfig() { GatewayIntents = GatewayIntents.All });
@@ -107,8 +113,15 @@ public static class Application
 
         await CommandHandler.SetupAsync();
         await Client.LoginAsync(TokenType.Bot, DiscordUtility.GetToken());
+        await Client.SetGameAsync("chiteros en el servidor", type: ActivityType.Watching);
         await Client.StartAsync();
-        await Client.SetGameAsync(Localization.Get("info_disc_act_bot_ver").KeyFormat(("version", BotVersion)));
+
+        // Iniciar Discord Rich Presence (RPC)
+        //InitializeRichPresence();
+
+        // Ejecutar el bucle en segundo plano para actualizar el Rich Presence dinámicamente
+        //_ = Task.Run(SetBotPresence);
+
 
         DiscordUtility.OrganizeCommands();
 
@@ -119,8 +132,9 @@ public static class Application
                 botInitialCheck = true;
 
                 await DiscordUtility.DoChannelCheck();
-                await BotUtility.NotifyLatestBotVersion();
+                //await BotUtility.NotifyLatestBotVersion();
                 await Localization.CheckUpdate();
+
             }
         };
 
@@ -138,5 +152,65 @@ public static class Application
         };
 
         await Task.Delay(-1);
+    }
+
+    private static async Task SetBotPresence()
+    {
+        await Client.SetGameAsync("Administrando en el servidor", type: ActivityType.CustomStatus);
+    }
+
+    private static void InitializeRichPresence()
+    {
+        _rpcClient = new DiscordRpcClient(DiscordUtility.GetToken());
+        _rpcClient.Initialize();
+        SetRichPresence();
+    }
+
+    private static void SetRichPresence()
+    {
+        _rpcClient.SetPresence(new RichPresence()
+        {
+            Details = "Administración",
+            State = "Supervisando",
+            Assets = new Assets()
+            {
+                LargeImageKey = "embedded_background",
+                LargeImageText = "Shelter Of Wisdom - Project Zomboid Server",
+                SmallImageKey = "shelter_of_wisdom_logo",
+                SmallImageText = "Shelter Of Wisdom Agent"
+            },
+            Buttons = new Button[]
+            {
+                new Button() { Label = "Únete a mi Discord", Url = "https://discord.gg/SPupyQgD" }
+            }
+        });
+
+        //Console.WriteLine("Rich Presence activado!");
+    }
+
+    private static async Task UpdateRichPresenceLoop()
+    {
+        while (true)
+        {
+            _rpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Administración",
+                State = "Supervisando",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "embedded_background",
+                    LargeImageText = "Shelter Of Wisdom - Project Zomboid Server",
+                    SmallImageKey = "shelter_of_wisdom_logo",
+                    SmallImageText = "Shelter Of Wisdom Agent"
+                },
+                Buttons = new Button[]
+                {
+                    new Button() { Label = "Únete a mi Discord", Url = "https://discord.gg/SPupyQgD" }
+                }
+            });
+
+            _rpcClient.Invoke(); // Mantiene la conexión activa
+            await Task.Delay(5000); // Espera 5 segundos antes de la próxima actualización
+        }
     }
 }

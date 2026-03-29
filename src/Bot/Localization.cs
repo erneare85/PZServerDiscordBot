@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +39,7 @@ public static class Localization
     public const string LocalizationPath = "./localization/";
     private const string exportPath = "../../../localization/";
     
-    private const string localizationDirURL  = "https://raw.githubusercontent.com/egebilecen/PZServerDiscordBot/main/localization/";
+    private const string localizationDirURL  = "https://raw.githubusercontent.com/erneare85/PZServerDiscordBot/main/localization/";
     private const string localizationListURL = localizationDirURL + "list.json";
     
     public static DateTime? LastCacheTime { get; private set; } = null;
