@@ -22,6 +22,8 @@
   "warn_console_missing_conf": "Bot is missing configuration. Please refer to {repo_url}#bot-configuration.",
   "warn_server_not_running": "Server is not running.",
   "warn_bot_conf_not_done": "Bot configuration haven't done yet.",
+  "disc_precond_guild_only": "This command can only be used inside a Discord server.",
+  "disc_precond_bot_priv": "You must be the server owner, have Administrator permission, or have a configured privileged role to use this command.",
   "warn_bot_conf_cmd_chan": "Please set a channel for bot to work in using **!set_command_channel <channel tag>** command.",
   "warn_bot_conf_log_chan": "Please set a channel for bot to write logs using **!set_log_channel <channel tag>** command.",
   "warn_bot_conf_pub_chan": "Please set a channel for bot to accept commands in a public channel using **!set_public_channel <channel tag>** command.",

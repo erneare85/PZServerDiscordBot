@@ -1,4 +1,4 @@
-﻿using Discord;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System;
@@ -7,6 +7,8 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
+[RequireContext(ContextType.Guild)]
+[RequireBotAdmin]
 public class BotCommands : ModuleBase<SocketCommandContext>
 {
     [Command("set_command_channel")]

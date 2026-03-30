@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public static partial class Schedules
 {
-    public static void ServerRestart(List<object> args)
+    public static async Task ServerRestart(List<object> args)
     {
         if(Application.BotSettings.ServerScheduleSettings.ServerRestartScheduleType.ToLower() == "time"
         && ServerUtility.AbortNextTimedServerRestart)
@@ -20,15 +21,15 @@ public static partial class Schedules
         if(logChannel != null)
         {
             if(isServerRunning)
-                logChannel.SendMessageAsync(Localization.Get("sch_serverrestart_restart_text"));
+                await logChannel.SendMessageAsync(Localization.Get("sch_serverrestart_restart_text"));
             else
-                logChannel.SendMessageAsync(Localization.Get("sch_serverrestart_server_not_running"));
+                await logChannel.SendMessageAsync(Localization.Get("sch_serverrestart_server_not_running"));
         }
 
         if(publicChannel != null)
         {
             if(isServerRunning)
-                publicChannel.SendMessageAsync(Localization.Get("sch_serverrestart_restart_text"));
+                await publicChannel.SendMessageAsync(Localization.Get("sch_serverrestart_restart_text"));
         }
         
         Logger.WriteLog(string.Format("[Server Restart Schedule] Restarting server if it is running. (Is server running: {0})", isServerRunning.ToString()));

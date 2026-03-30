@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public static partial class Schedules
 {
-    public static void AutoServerStart(List<object> args)
+    public static async Task AutoServerStart(List<object> args)
     {
         if(Application.BotSettings.BotFeatureSettings.AutoServerStart)
         {
@@ -11,7 +12,8 @@ public static partial class Schedules
                 var logChannel = DiscordUtility.GetTextChannelById(Application.BotSettings.LogChannelId);
 
                 Logger.WriteLog("[AutoServerStart Schedule] Server is not running. Attempting to start the server.");
-                logChannel?.SendMessageAsync(Localization.Get("sch_autoserverstart_text"));
+                if (logChannel != null)
+                    await logChannel.SendMessageAsync(Localization.Get("sch_autoserverstart_text"));
                 
             #if !DEBUG
                 ServerUtility.Commands.StartServer();

@@ -1,17 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
+using Timer = System.Timers.Timer;
 
 public class ScheduleItem
 {
+    private int _executeGate;
+
     public string               Name            { get; }
     public string               DisplayName     { get; }
-    public Action<List<object>> Function        { get; }
+    public Func<List<object>, Task> Function    { get; }
     public List<object>         Args            { get; set; }
     public ulong                IntervalMS      { get; set; }
     public DateTime             NextExecuteTime { get; set; }
 
-    public ScheduleItem(string name, string displayName, ulong intervalMS, Action<List<object>> func, List<object> args)
+    public ScheduleItem(string name, string displayName, ulong intervalMS, Func<List<object>, Task> func, List<object> args)
     {
         Name           = name;
         DisplayName    = displayName;
@@ -26,11 +32,16 @@ public class ScheduleItem
         if(intervalMS > 0) IntervalMS = intervalMS;
         NextExecuteTime = DateTime.Now.AddMilliseconds(IntervalMS);
     }
+
+    internal bool TryBeginExecute() => Interlocked.CompareExchange(ref _executeGate, 1, 0) == 0;
+
+    internal void EndExecute() => Interlocked.Exchange(ref _executeGate, 0);
 }
 
 public static class Scheduler
 {
     private static Timer clock;
+    private static readonly object scheduleLock = new object();
     private static readonly List<ScheduleItem> scheduleItems = new List<ScheduleItem>();
 
     public static void Start(ulong intervalMS)
@@ -39,7 +50,7 @@ public static class Scheduler
         {
             Interval = intervalMS
         };
-        clock.Elapsed += new ElapsedEventHandler(ClockElapsed);
+        clock.Elapsed += ClockElapsed;
         clock.Start();
     }
 
@@ -52,50 +63,71 @@ public static class Scheduler
     public static void AddItem(ScheduleItem item)
     {
         if(item.IntervalMS != 0)
-            scheduleItems.Add(item);
+            lock (scheduleLock)
+                scheduleItems.Add(item);
     }
 
     public static void RemoveItem(string name)
     { 
-        int index = scheduleItems.FindIndex(item => item.Name == name);
-        if(index != -1) scheduleItems.RemoveAt(index);
+        lock (scheduleLock)
+        {
+            int index = scheduleItems.FindIndex(item => item.Name == name);
+            if(index != -1) scheduleItems.RemoveAt(index);
+        }
     }
 
     public static ScheduleItem GetItem(string name)
     {
-        return scheduleItems.Find(item => item.Name == name);
+        lock (scheduleLock)
+            return scheduleItems.Find(item => item.Name == name);
     }
 
     public static IReadOnlyCollection<ScheduleItem> GetItems()
     {
-        return scheduleItems.AsReadOnly();
+        lock (scheduleLock)
+            return scheduleItems.ToList().AsReadOnly();
     }
 
     private static void ClockElapsed(object sender, ElapsedEventArgs e)
     {
         DateTime now = DateTime.Now;
+        List<ScheduleItem> snapshot;
+        lock (scheduleLock)
+            snapshot = scheduleItems.ToList();
 
-        foreach(ScheduleItem item in scheduleItems)
+        foreach(ScheduleItem item in snapshot)
         {
             if(item.IntervalMS != 0
-            && now >= item.NextExecuteTime)
+            && now >= item.NextExecuteTime
+            && item.TryBeginExecute())
             {
-                try { item.Function(item.Args); }
-                catch(Exception ex) 
-                { 
-                    string exceptionMessage = $"Exception occured in ScheduleItem callback function. ScheduleItem: {item.Name}";
-
-                    if(ex is AggregateException aggregateEx)
-                    {
-                        int i=0;
-                        foreach(Exception innerEx in aggregateEx.InnerExceptions)
-                            Logger.LogException(innerEx, $"{exceptionMessage}\n(THIS IS AN INNER EXCEPTION, NUMBER {++i})");
-                    }
-                    else Logger.LogException(ex, exceptionMessage);
-                }
-                    
-                item.UpdateInterval();
+                _ = RunItemAsync(item);
             }
+        }
+    }
+
+    private static async Task RunItemAsync(ScheduleItem item)
+    {
+        try
+        {
+            await item.Function(item.Args).ConfigureAwait(false);
+        }
+        catch(Exception ex) 
+        { 
+            string exceptionMessage = $"Exception occured in ScheduleItem callback function. ScheduleItem: {item.Name}";
+
+            if(ex is AggregateException aggregateEx)
+            {
+                int i=0;
+                foreach(Exception innerEx in aggregateEx.InnerExceptions)
+                    Logger.LogException(innerEx, $"{exceptionMessage}\n(THIS IS AN INNER EXCEPTION, NUMBER {++i})");
+            }
+            else Logger.LogException(ex, exceptionMessage);
+        }
+        finally
+        {
+            item.UpdateInterval();
+            item.EndExecute();
         }
     }
 

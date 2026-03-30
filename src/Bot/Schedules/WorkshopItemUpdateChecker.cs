@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public static partial class Schedules
 {
-    public static void WorkshopItemUpdateChecker(List<object> args)
+    public static async Task WorkshopItemUpdateChecker(List<object> args)
     {
     #if !DEBUG
         if(!ServerUtility.IsServerRunning())
@@ -55,8 +55,7 @@ public static partial class Schedules
             return;
         }
 
-        var fetchDetails = Task.Run(async () => await SteamWebAPI.GetWorkshopItemDetails(workshopIdList));
-        var itemDetails  = fetchDetails.Result;
+        var itemDetails = await SteamWebAPI.GetWorkshopItemDetails(workshopIdList);
 
         var logChannel   = DiscordUtility.GetTextChannelById(Application.BotSettings.LogChannelId);
 
@@ -66,7 +65,7 @@ public static partial class Schedules
             && item.Result != 1
             && logChannel != null)
             {
-                logChannel.SendMessageAsync(Localization.Get("sch_workshopitemupdatechecker_details_fail").KeyFormat(("id", item.PublishedFileId), ("code", item.Result), ("link", "https://steamcommunity.com/sharedfiles/filedetails/?id="+item.PublishedFileId)));
+                await logChannel.SendMessageAsync(Localization.Get("sch_workshopitemupdatechecker_details_fail").KeyFormat(("id", item.PublishedFileId), ("code", item.Result), ("link", "https://steamcommunity.com/sharedfiles/filedetails/?id="+item.PublishedFileId)));
             }
 
             var updateDate = DateTimeOffset.FromUnixTimeSeconds(item.TimeUpdated);
@@ -78,7 +77,7 @@ public static partial class Schedules
 
                 if(logChannel != null)
                 {
-                    logChannel.SendMessageAsync(Localization.Get("sch_workshopitemupdatechecker_log_chan_text").KeyFormat(("minutes", restartInMinutes)));
+                    await logChannel.SendMessageAsync(Localization.Get("sch_workshopitemupdatechecker_log_chan_text").KeyFormat(("minutes", restartInMinutes)));
                 }
                 else
                 {
@@ -88,7 +87,7 @@ public static partial class Schedules
 
                 if(publicChannel != null)
                 {
-                    publicChannel.SendMessageAsync(Localization.Get("sch_workshopitemupdatechecker_pub_chan_text").KeyFormat(("minutes", restartInMinutes)));
+                    await publicChannel.SendMessageAsync(Localization.Get("sch_workshopitemupdatechecker_pub_chan_text").KeyFormat(("minutes", restartInMinutes)));
                 }
                 else
                 {

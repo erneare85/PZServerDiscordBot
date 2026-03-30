@@ -1,10 +1,12 @@
-﻿using Discord.Commands;
+using Discord.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[RequireContext(ContextType.Guild)]
+[RequireBotAdmin]
 public class PZServerCommands : ModuleBase<SocketCommandContext>
 {
     [Command("server_cmd")]
@@ -473,8 +475,7 @@ public class PZServerCommands : ModuleBase<SocketCommandContext>
 
         string[] workshopModIds = workshopModIdList.ToArray();
 
-        var fetchDetails = Task.Run(async () => await SteamWebAPI.GetWorkshopItemDetails(workshopModIds));
-        var itemDetails = fetchDetails.Result;
+        var itemDetails = await SteamWebAPI.GetWorkshopItemDetails(workshopModIds);
 
         pattern = @"Mod ID: .*(?!Mod ID: )";
         rg = new Regex(pattern);

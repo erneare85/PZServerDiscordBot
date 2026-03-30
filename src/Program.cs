@@ -1,13 +1,9 @@
-#define EXPORT_DEFAULT_LOCALIZATION
-
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using DiscordRPC;
 using Newtonsoft.Json;
 using System;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 
 public static class Application
@@ -18,7 +14,6 @@ public static class Application
     public static Settings.BotSettings     BotSettings;
 
     public static DiscordSocketClient  Client;
-    private static DiscordRpcClient _rpcClient;
     public static CommandService       Commands;
     public static IServiceProvider     Services;
     public static CommandHandler       CommandHandler;
@@ -42,9 +37,9 @@ public static class Application
         }
 
         Localization.Load();
-    #if EXPORT_DEFAULT_LOCALIZATION
+#if EXPORT_DEFAULT_LOCALIZATION
         Localization.ExportDefault();
-    #endif
+#endif
 
     #if DEBUG
         Console.WriteLine(Localization.Get("warn_debug_mode"));
@@ -107,7 +102,12 @@ public static class Application
         }
     #endif
 
-        Client   = new DiscordSocketClient(new DiscordSocketConfig() { GatewayIntents = GatewayIntents.All });
+        Client   = new DiscordSocketClient(new DiscordSocketConfig()
+        {
+            GatewayIntents = GatewayIntents.Guilds
+                | GatewayIntents.GuildMessages
+                | GatewayIntents.MessageContent
+        });
         Commands = new CommandService();
         Services = null;
         CommandHandler = new CommandHandler(Client, Commands, Services);
@@ -116,13 +116,6 @@ public static class Application
         await Client.LoginAsync(TokenType.Bot, DiscordUtility.GetToken());
         await Client.SetGameAsync(BotDisplayName, type: ActivityType.Playing);
         await Client.StartAsync();
-
-        // Iniciar Discord Rich Presence (RPC)
-        //InitializeRichPresence();
-
-        // Ejecutar el bucle en segundo plano para actualizar el Rich Presence dinámicamente
-        //_ = Task.Run(SetBotPresence);
-
 
         DiscordUtility.OrganizeCommands();
 
@@ -133,7 +126,7 @@ public static class Application
                 botInitialCheck = true;
 
                 await DiscordUtility.DoChannelCheck();
-                //await BotUtility.NotifyLatestBotVersion();
+                await BotUtility.NotifyLatestBotVersion();
                 await Localization.CheckUpdate();
 
             }
@@ -142,9 +135,10 @@ public static class Application
         Client.Disconnected += async (ex) =>
         {
             Logger.LogException(ex);
-            Logger.LogException(ex.InnerException);
+            if (ex?.InnerException != null)
+                Logger.LogException(ex.InnerException);
 
-            if(ex.InnerException.Message.Contains("Authentication failed"))
+            if(ex?.InnerException != null && ex.InnerException.Message.Contains("Authentication failed"))
             {
                 Console.WriteLine(Localization.Get("err_disc_auth_fail"));
                 await Task.Delay(-1);
@@ -153,65 +147,5 @@ public static class Application
         };
 
         await Task.Delay(-1);
-    }
-
-    private static async Task SetBotPresence()
-    {
-        await Client.SetGameAsync(BotDisplayName, type: ActivityType.Playing);
-    }
-
-    private static void InitializeRichPresence()
-    {
-        _rpcClient = new DiscordRpcClient(DiscordUtility.GetToken());
-        _rpcClient.Initialize();
-        SetRichPresence();
-    }
-
-    private static void SetRichPresence()
-    {
-        _rpcClient.SetPresence(new RichPresence()
-        {
-            Details = BotDisplayName,
-            State = "Project Zomboid server",
-            Assets = new Assets()
-            {
-                LargeImageKey = "embedded_background",
-                LargeImageText = "SOW Gatekeeper 26 — Project Zomboid",
-                SmallImageKey = "shelter_of_wisdom_logo",
-                SmallImageText = BotDisplayName
-            },
-            Buttons = new Button[]
-            {
-                new Button() { Label = "Únete a mi Discord", Url = "https://discord.gg/SPupyQgD" }
-            }
-        });
-
-        //Console.WriteLine("Rich Presence activado!");
-    }
-
-    private static async Task UpdateRichPresenceLoop()
-    {
-        while (true)
-        {
-            _rpcClient.SetPresence(new RichPresence()
-            {
-                Details = BotDisplayName,
-                State = "Project Zomboid server",
-                Assets = new Assets()
-                {
-                    LargeImageKey = "embedded_background",
-                    LargeImageText = "SOW Gatekeeper 26 — Project Zomboid",
-                    SmallImageKey = "shelter_of_wisdom_logo",
-                    SmallImageText = BotDisplayName
-                },
-                Buttons = new Button[]
-                {
-                    new Button() { Label = "Únete a mi Discord", Url = "https://discord.gg/SPupyQgD" }
-                }
-            });
-
-            _rpcClient.Invoke(); // Mantiene la conexión activa
-            await Task.Delay(5000); // Espera 5 segundos antes de la próxima actualización
-        }
     }
 }

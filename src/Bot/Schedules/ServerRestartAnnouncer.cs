@@ -1,13 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AnnouncementIntervalList = System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<int, bool>>;
 
 public static partial class Schedules
 {
 
-    public static void ServerRestartAnnouncer(List<object> args)
+    public static async Task ServerRestartAnnouncer(List<object> args)
     {
         if(!ServerUtility.IsServerRunning()) return;
 
@@ -61,7 +62,8 @@ public static partial class Schedules
 
         intervalList[index] = new KeyValuePair<int, bool>(announcementPair.Key, true);
 
-        publicChannel?.SendMessageAsync(message);
+        if (publicChannel != null)
+            await publicChannel.SendMessageAsync(message);
         ServerUtility.Commands.ServerMsg(message);
     }
 }

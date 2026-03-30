@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,6 +40,9 @@ namespace Settings
         public ulong        CommandChannelId;
         public ulong        LogChannelId;
         public ulong        PublicChannelId;
+
+        /// <summary>Optional role IDs treated as privileged for Bot/PZ/Admin command modules (in addition to server owner and Administrator permission).</summary>
+        public List<ulong>  PrivilegedRoleIds = new List<ulong>();
 
         public ServerLogParserSettings ServerLogParserSettings = new ServerLogParserSettings();
         public ServerScheduleSettings  ServerScheduleSettings  = new ServerScheduleSettings();

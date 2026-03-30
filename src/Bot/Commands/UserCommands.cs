@@ -52,7 +52,7 @@ public class UserCommands : ModuleBase<SocketCommandContext>
 
         if(!File.Exists(mapTimeFile))
         {
-            Logger.WriteLog(string.Format("[UserCommand - game_date] Couldn't find path: ", mapTimeFile));
+            Logger.WriteLog(string.Format("[UserCommand - game_date] Couldn't find path: {0}", mapTimeFile));
             
             await Context.Message.AddReactionAsync(EmojiList.RedCross);
             await Context.Channel.SendMessageAsync(Localization.Get("disc_cmd_game_date_warn_file"));

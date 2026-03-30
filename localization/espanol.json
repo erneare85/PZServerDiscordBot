@@ -22,6 +22,8 @@
   "warn_console_missing_conf": "El bot requiere configuración. Consulta {repo_url}#bot-configuration.",
   "warn_server_not_running": "El servidor no está operativo.",
   "warn_bot_conf_not_done": "El bot aún no está configurado.",
+  "disc_precond_guild_only": "Este comando solo puede usarse dentro de un servidor de Discord.",
+  "disc_precond_bot_priv": "Debes ser el dueño del servidor, tener permiso de administrador o tener un rol privilegiado configurado para usar este comando.",
   "warn_bot_conf_cmd_chan": "Configura un canal con el comando **!set_command_channel <#channel tag>** para controlar el bot.",
   "warn_bot_conf_log_chan": "Configura un canal con el comando **!set_log_channel <#channel tag>** para registrar la actividad del bot.",
   "warn_bot_conf_pub_chan": "Configura un canal público con el comando **!set_public_channel <#channel tag>** para permitir a los jugadores interactuar con el bot.",
